@@ -1,5 +1,7 @@
-import { Observable } from 'rxjs';
-
+//import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
 //create a observable stream of data
 let numbers = [1,2,34,45,23,24];
 //let source = Observable.from(numbers);
