@@ -1,55 +1,24 @@
-//import { Observable } from 'rxjs';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/filter';
-//create a observable stream of data
-let numbers = [1,2,34,45,23,24];
-//let source = Observable.from(numbers);
+import { Observable } from 'rxjs';
 
-let source = Observable.create(observer => {
-    
-    let index = 0;
-    let produceValue = () => {
-        
-        observer.next(numbers[index++]);
-        if(index < numbers.length){
-            setTimeout(produceValue,200);
-        }else{
-            observer.complete();
-        }
-    }
-        
-     produceValue();  
-}).map(x => x *2)
-    .filter(x => x > 4);
+let circle = document.getElementById('circle');
+let source = Observable.fromEvent(document,'mousemove')
+                        .map((e: MouseEvent) => {
+                            return {
+                                x: e.clientX,
+                                y: e.clientY
+                            }
+                        }).delay(100);
+                        //.filter(value => value.x < 500);
 
-
-
-//observer maily contains 3 methods next, error, complete
-
-/*class MyObserver{
-    //Every time Observable has  a new item , it will invoke this method of observer
-    next(value){
-        console.log(`value: ${value}`);
-    }
-
-    // in case of error it will invoke error method of observer
-    error(e){
-        console.log(`error: ${e}`);
-    }
-
-    complete(){
-        console.log(`completed`);
-    }
-
+                        
+function onNext (value) {
+       circle.style.left = value.x + "px";
+       circle.style.top = value.y + "px"; 
+      console.log(value.x);
 }
-*/
-//subscribe to listen to Observable stream of data
-//way to listen is by passing an Observer
 
-//a better way of listening
 source.subscribe(
-    value => console.log(`value: ${value}`),
+    onNext,
     e => console.log(`error: ${e}`),
     () =>  console.log(`completed`)
 );
