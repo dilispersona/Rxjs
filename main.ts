@@ -1,15 +1,23 @@
 import { Observable } from 'rxjs';
 
 //create a observable stream of data
-let numbers = [1,2,34,45];
+let numbers = [1,2,34,45,23,24];
 //let source = Observable.from(numbers);
 
-let source = Observable.create(observer =>
-   {
-        for (let n of numbers){
-       observer.next(n);
+let source = Observable.create(observer => {
+    
+    let index = 0;
+    let produceValue = () => {
+        
+        observer.next(numbers[index++]);
+        if(index < numbers.length){
+            setTimeout(produceValue,2000);
+        }else{
+            observer.complete();
+        }
     }
-    observer.complete();
+        
+     produceValue();  
 })
 
 
