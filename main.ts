@@ -7,7 +7,7 @@ let source = Observable.from(numbers);
 
 //observer maily contains 3 methods next, error, complete
 
-class MyObserver{
+/*class MyObserver{
     //Every time Observable has  a new item , it will invoke this method of observer
     next(value){
         console.log(`value: ${value}`);
@@ -23,9 +23,13 @@ class MyObserver{
     }
 
 }
-
+*/
 //subscribe to listen to Observable stream of data
 //way to listen is by passing an Observer
 
-
-source.subscribe(new MyObserver());
+//a better way of listening
+source.subscribe(
+    value => console.log(`value: ${value}`),
+    e => console.log(`error: ${e}`),
+    () =>  console.log(`completed`)
+);
