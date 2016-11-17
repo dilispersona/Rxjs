@@ -2,7 +2,16 @@ import { Observable } from 'rxjs';
 
 //create a observable stream of data
 let numbers = [1,2,34,45];
-let source = Observable.from(numbers);
+//let source = Observable.from(numbers);
+
+let source = Observable.create(observer =>
+   {
+        for (let n of numbers){
+       observer.next(n);
+    }
+    observer.complete();
+})
+
 
 
 //observer maily contains 3 methods next, error, complete
