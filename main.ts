@@ -11,14 +11,15 @@ let source = Observable.create(observer => {
         
         observer.next(numbers[index++]);
         if(index < numbers.length){
-            setTimeout(produceValue,2000);
+            setTimeout(produceValue,200);
         }else{
             observer.complete();
         }
     }
         
      produceValue();  
-})
+}).map(x => x *2)
+    .filter(x => x > 4);
 
 
 
